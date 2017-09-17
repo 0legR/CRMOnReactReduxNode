@@ -1,0 +1,28 @@
+.header-block {
+	display: inline-block;
+	margin-right: 40px;
+}
+.login {
+	float: right;
+}
+.signup {
+	width: 30em;
+	margin: auto;
+}
+
+.ui.header>.image:not(.icon), .ui.header>img {
+	width: 10em;
+}
+
+.ui.segment>.item {
+	max-width: 10em;
+	max-height: 10em;
+}
+
+.ui.secondary.pointing.menu .item {
+	padding: 2px;
+}
+
+.text-field-group {
+	color: #9f3a38;
+}
