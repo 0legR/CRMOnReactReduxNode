@@ -1,10 +1,30 @@
+/*-----------------------Stick footer to bottom---------------------------*/
+.container-main {
+	min-height: 100vh;
+}
+
+.main-content {
+	padding-bottom: 11vh;
+}
+
+.footer-main {
+	 background-color: black;
+  color: red;
+  width: 100%;
+  /*position: relative;*/
+  height: 10vh;
+  margin-top: -10vh;
+}
+/*------------------------header section------------------------------*/
 .header-block {
 	display: inline-block;
 	margin-right: 40px;
 }
+
 .login {
 	float: right;
 }
+
 .signup {
 	width: 30em;
 	margin: auto;
@@ -25,4 +45,39 @@
 
 .text-field-group {
 	color: #9f3a38;
+}
+
+/*-------------------Users settings section---------------------*/
+.header-settings {
+	background-color: rgba(70, 130, 180, .4)!important;
+}
+
+.create-button {
+	margin-bottom: 10px !important;
+}
+
+.ui .table {
+	border: none;
+}
+
+.ui .table thead th {
+	color: white;
+	background-color: black;
+}
+
+.ui .table .table-filter th {
+	border: 2px solid black;
+	background: transparent;
+}
+
+.input-filter {
+	width: 100%;
+}
+
+.create-type-button {
+	margin-top: 10px;
+}
+/*---------------------User Types Section--------------------------*/
+.usertype-th {
+	margin-left: 20px;
 }

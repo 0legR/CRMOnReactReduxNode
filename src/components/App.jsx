@@ -10,10 +10,14 @@ export default class App extends Component {
 		const Header = window.location.pathname === "/" ? <MainHeader /> : <HomeHeader />;
 
 		return (
-			<div className="ui container">
-				{Header}
-				<FlashMessageList />
-				{this.props.children}
+			<div>
+				<div className="container-main">
+					{Header}
+					<div className="ui container main-content">
+							<FlashMessageList />
+							{this.props.children}
+					</div>
+				</div>
 				<Footer />
 			</div>
 		);

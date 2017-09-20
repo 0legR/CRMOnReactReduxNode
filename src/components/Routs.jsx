@@ -7,6 +7,11 @@ import Settings from './menu/Settings';
 import Orders from './menu/Orders';
 import Files from './menu/Files';
 import requireAuth from '../utils/requireAuth';
+import Administrators from './users/Administrators';
+import Managers from './users/Managers';
+import AdministratorsCreate from './users/administrators/AdministratorsCreate';
+import UserTypesIndex from './users/usertypes/UserTypesIndex';
+import UserTypesCreate from './users/usertypes/UserTypesCreate';
 
 const Routs = () => 
 	<Router>
@@ -16,6 +21,11 @@ const Routs = () =>
 			<Route path="/settings" component={requireAuth(Settings)} />
 			<Route path="/orders" component={requireAuth(Orders)} />
 			<Route path="/files" component={requireAuth(Files)} />
+			<Route path="/users/administrators" exact component={requireAuth(Administrators)} />
+			<Route path="/users/administrators/create" exact component={requireAuth(AdministratorsCreate)} />
+			<Route path="/users/managers" component={requireAuth(Managers)} />
+			<Route path="/users/types" exact component={requireAuth(UserTypesIndex)} />
+			<Route path="/users/types/create" exact component={requireAuth(UserTypesCreate)} />
 		</App>
 	</Router>;
 

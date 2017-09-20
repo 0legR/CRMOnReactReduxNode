@@ -27,12 +27,14 @@ class HomeHeader extends React.Component {
 		);
 		return (
 			<div className="ui secondary pointing menu">
-				<div className="ui segment">
-					<img src={logo} alt="Logo" className="item" />
-					<h1 className="item">Header</h1>
+				<div className="ui container">
+					<div className="ui segment">
+						<img src={logo} alt="Logo" className="item" />
+						<h1 className="item">Header</h1>
+					</div>
+					{mainLinks}
+					{userLinks}
 				</div>
-				{mainLinks}
-				{userLinks}
 			</div>
 		);
 	}

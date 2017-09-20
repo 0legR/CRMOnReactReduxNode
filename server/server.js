@@ -11,6 +11,6 @@ let app = express();
 app.use(bodyParser.json());
 app.use('/api/users', users);
 app.use('/api/auth', auth);
-app.use('/api/usertypes', userTypes);
+app.use('/api/types', userTypes);
 
 app.listen(8080, () => console.log('Running on localhost 8080'));
