@@ -47,6 +47,10 @@
 	color: #9f3a38;
 }
 
+.ui.secondary.pointing.menu .item {
+	margin-right: 20px;
+}
+
 /*-------------------Users settings section---------------------*/
 .header-settings {
 	background-color: rgba(70, 130, 180, .4)!important;
