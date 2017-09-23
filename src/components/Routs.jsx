@@ -11,7 +11,9 @@ import Administrators from './users/Administrators';
 import Managers from './users/Managers';
 import AdministratorsCreate from './users/administrators/AdministratorsCreate';
 import UserTypesIndex from './users/usertypes/UserTypesIndex';
-import UserTypesCreate from './users/usertypes/UserTypesCreate';
+// import UserTypesCreate from './users/usertypes/UserTypesCreate';
+import UserTypeFormPage from './users/usertypes/UserTypeFormPage';
+
 
 const Routs = () => 
 	<Router>
@@ -25,7 +27,8 @@ const Routs = () =>
 			<Route path="/users/administrators/create" exact component={requireAuth(AdministratorsCreate)} />
 			<Route path="/users/managers" component={requireAuth(Managers)} />
 			<Route path="/users/types" exact component={requireAuth(UserTypesIndex)} />
-			<Route path="/users/types/create" exact component={requireAuth(UserTypesCreate)} />
+			<Route path="/users/types/create" exact component={requireAuth(UserTypeFormPage)} />
+			<Route path="/users/types/update/:id" exact component={requireAuth(UserTypeFormPage)} />
 		</App>
 	</Router>;
 

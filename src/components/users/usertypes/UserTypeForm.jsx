@@ -3,17 +3,15 @@ import {TextFieldGroup} from '../../layout/TextFieldGroup';
 import classnames from 'classnames';
 import usertypes from '../../../le/eng/users/usertypes';
 import PropTypes from 'prop-types';
-import {connect} from 'react-redux';
-import {isTypeExists, userTypeRequest} from '../../../actions/usertypeActions';
-import {addFlashMessages} from '../../../actions/flashMessages';
 import validateInput from '../../../utils/validations/usertype';
 
-class UserTypesCreate extends Component {
+export default class UserTypeForm extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			typename: "",
-			typeId: "",
+			id: this.props.type ? this.props.type.id : null,
+			typename: this.props.type ? this.props.type.typename : "",
+			typeId: this.props.type ? this.props.type.typeId.toString() : "",
 			errors: {},
 			isLoading: false,
 			invalid: false
@@ -23,7 +21,7 @@ class UserTypesCreate extends Component {
 		this.handlerOnChange = this.handlerOnChange.bind(this);
 		this.handlerIsTypeExists = this.handlerIsTypeExists.bind(this);
 	}
-
+	
 	handlerOnChange(e) {
 		this.setState({
 			[e.target.name]: e.target.value.toLowerCase()
@@ -31,22 +29,24 @@ class UserTypesCreate extends Component {
 	}
 
 	handlerIsTypeExists(e) {
-		const field = e.target.name;
-		const val = e.target.value;
-		if (val !== "") {
-			this.props.isTypeExists(val).then(res => {
-				let errors = this.state.errors;
-				let invalid;
+		if (!this.state.id) {
+			const field = e.target.name;
+			const val = e.target.value;
+			if (val !== "") {
+				this.props.isTypeExists(val).then(res => {
+					let errors = this.state.errors;
+					let invalid;
 
-				if (res.data.type) {
-					errors[field] = "There is type with such " + field;
-					invalid = true;
-				} else {
-					errors[field] = "";
-					invalid = false;
-				}
-				this.setState({errors, invalid});
-			});
+					if (res.data.type) {
+						errors[field] = "There is type with such " + field;
+						invalid = true;
+					} else {
+						errors[field] = "";
+						invalid = false;
+					}
+					this.setState({errors, invalid});
+				});
+			};
 		};
 	}
 
@@ -61,12 +61,13 @@ class UserTypesCreate extends Component {
 	handlerOnSubmit(e) {
 		e.preventDefault();
 		if (this.isValid()) {
+			const {id, typename, typeId} = this.state;
 			this.setState({errors: {}, isLoading: true});
-			this.props.userTypeRequest(this.state)
+			this.props.saveUserType({id, typename, typeId})
 				.then(() => {
 					this.props.addFlashMessages({
 						type: "success",
-						text: "You have created new user type successful"
+						text: "You have created/updated new user type successful"
 					});
 					this.context.router.history.push('/users/types/');
 				})
@@ -110,14 +111,6 @@ class UserTypesCreate extends Component {
 	}
 }
 
-UserTypesCreate.propTypes = {
-	userTypeRequest: PropTypes.func.isRequired,
-	isTypeExists: PropTypes.func.isRequired,
-	addFlashMessages: PropTypes.func.isRequired
-}
-
-UserTypesCreate.contextTypes = {
+UserTypeForm.contextTypes = {
 	router: PropTypes.object.isRequired
 }
-
-export default connect(null, {userTypeRequest, isTypeExists, addFlashMessages})(UserTypesCreate);

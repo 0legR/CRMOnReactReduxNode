@@ -41,16 +41,37 @@ router.post('/', (req, res) => {
 
 router.get('/:identifier', (req, res) => {
 	UserTypes.query({
-		select: ["typename", "typeId"],
+		select: ["typename", "typeId", "id"],
 		where: {typename: req.params.identifier},
-		orWhere: {typeId: req.params.identifier} 
+		orWhere: {typeId: req.params.identifier},
+		orWhere: {id: req.params.identifier}
 	}).fetch().then(type => {res.json({type})});
 });
 
 router.get('/', (req, res) => {
 	UserTypes.query({
-		select: ["typename", "typeId"]
+		select: ["typename", "typeId", "id"]
 	}).fetchAll().then(types => {res.json({types})});
+});
+
+router.put('/:identifier', (req, res) => {
+	const {errors, isValid} = commonValidations(req.body);
+		if (isValid) {
+			const {typename, typeId} = req.body;
+			UserTypes.forge({id: req.params.identifier})
+			.save({typename: typename, typeId: typeId})
+			.then(type => res.json({success: true}))
+			.catch(err => res.status(500).json({error: err}));
+		} else {
+			res.status(400).json(errors);
+		}
+});
+
+router.delete('/:id', (req, res) => {
+	UserTypes.forge({id: req.params.id})
+	.destroy()
+	.then(type => res.json({success: true}))
+	.catch(err => res.status(500).json({error: err}));
 });
 
 export default router;

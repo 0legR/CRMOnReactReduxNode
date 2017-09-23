@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import usertypes from '../../../le/eng/users/usertypes';
 import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
-import {getTypes} from '../../../actions/usertypeActions';
+import {getTypes, deleteUserType} from '../../../actions/usertypeActions';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
@@ -38,6 +38,7 @@ class UserTypesIndex extends Component {
 		let resultFilter = [];
 		let resultAll = [];
 		let radix = false;
+		let self = this.props;
 		this.props.types.forEach(
 			function(type) {
 				if (type.typeId === parseInt(typeId, radix) || type.typename === typename) {
@@ -46,9 +47,26 @@ class UserTypesIndex extends Component {
 				      <td><div className="usertype-th">{type.typeId}</div></td>
 				    </tr>);
 				} else {
-					resultAll.push(<tr key={type.typeId}>
-				      <td><div className="usertype-th">{type.typename}</div></td>
-				      <td><div className="usertype-th">{type.typeId}</div></td>
+					resultAll.push(<tr key={type.typeId}>	
+				      <td>
+				      	<Link to={`/users/types/update/${type.id}`}>
+				      		<div className="usertype-th">{type.typename}</div>
+				      	</Link>
+				      </td>
+				      <td>
+				      	<Link to={`/users/types/update/${type.id}`}>
+				      		<div className="usertype-th">{type.typeId}</div>
+				      	</Link>
+				      </td>
+				      <td>
+				    	<div className="usertype-th-destroy">
+				    		<button className="ui negative basic button" onClick={() => self.deleteUserType(type.id)}>
+					    			<div className="usertype-destroy">
+					    				<i className="trash outline icon"></i>
+					    			</div>
+				    		</button>
+				    	</div>
+				    	</td>
 				    </tr>);
 				}
 			}
@@ -75,6 +93,7 @@ class UserTypesIndex extends Component {
 				    <tr>
 				      <th>{usertypes.thTypeName}</th>
 				      <th>{usertypes.thTypeId}</th>
+				      <th>{usertypes.thDestroy}</th>
 				    </tr>
 				    <tr className="table-filter">
 				    	<th>
@@ -101,6 +120,7 @@ class UserTypesIndex extends Component {
 					    		<i className="search icon"></i>
 				    		</div>
 				    	</th>
+				    	<th><div className="usertype-destroy"><i className="trash outline icon"></i></div></th>
 				    </tr>
 				  </thead>
 				  <tbody>
@@ -114,7 +134,9 @@ class UserTypesIndex extends Component {
 
 UserTypesIndex.propTypes = {
 	getTypes: PropTypes.func.isRequired,
-	types: PropTypes.array.isRequired
+	types: PropTypes.array.isRequired,
+	getOneType: PropTypes.func,
+	deleteUserType: PropTypes.func.isRequired
 }
 
 function mapStateToProps(state) {
@@ -123,4 +145,4 @@ function mapStateToProps(state) {
 	}
 }
 
-export default connect(mapStateToProps, {getTypes})(UserTypesIndex);
+export default connect(mapStateToProps, {getTypes, deleteUserType})(UserTypesIndex);

@@ -85,3 +85,12 @@
 .usertype-th {
 	margin-left: 20px;
 }
+
+.usertype-th-destroy {
+	margin-left: 90px;
+}
+
+.usertype-destroy {
+	color: red;
+	text-align: center;
+}
