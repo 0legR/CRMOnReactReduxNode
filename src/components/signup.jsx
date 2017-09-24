@@ -40,7 +40,6 @@ class SignUp extends Component {
 			this.props.isUserExists(val).then(res => {
 				let errors = this.state.errors;
 				let invalid;
-
 				if (res.data.user) {
 					errors[field] = "There is user with such " + field;
 					invalid = true;
@@ -77,6 +76,14 @@ class SignUp extends Component {
 					(error) => this.setState({errors: error.response.data, isLoading: false})
 				);
 		};
+		this.setState({
+			username: "",
+			email: "",
+			password: "",
+			passwordConfirmation: "",
+			timezone: ""
+		});
+		setTimeout(() => {this.setState({isLoading: false})}, 2000);
 	}
 
 	render() {

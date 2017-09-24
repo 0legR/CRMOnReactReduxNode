@@ -75,7 +75,8 @@ class Login extends Component {
 			<form className="ui form header-block login" onSubmit={this.handleOnSubmit}>
 				<h5>Please login</h5>
 				{errors.form && <div className="ui negative message">{errors.form}</div>}
-				<div className="2 fields">
+				<div className="2 fields login-2-fields">
+					<div className="login-field">
 					<TextFieldGroup
 						label="Username / E-mail"
 						onChange={this.handleOnChange}
@@ -84,6 +85,8 @@ class Login extends Component {
 						error={errors.identifier}
 						isUserExists={this.handlerIsUserExists}
 					/>
+					</div>
+					<div className="login-field">
 					<TextFieldGroup
 						label="Password"
 						onChange={this.handleOnChange}
@@ -92,10 +95,10 @@ class Login extends Component {
 						type="password"
 						error={errors.password}
 					/>
-				
-				<div>
-					<button disabled={isLoading} className="ui primary button">Login</button>
+					</div>
 				</div>
+				<div className="login-button">
+					<button disabled={isLoading} className="ui primary button">Login</button>
 				</div>
 			</form>
 		);
